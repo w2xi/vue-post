@@ -4,9 +4,14 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import 'lib-flexible'
+import './filter.js'
+import api from './api.js'
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = api.base_url
 Vue.prototype.$_http = axios
+Vue.prototype.$_httpApi = api
+
 
 new Vue({
 	router,

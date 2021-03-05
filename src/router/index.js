@@ -10,10 +10,13 @@ Vue.use(VueRouter)
 export default new VueRouter({
 	routes: [
 		{
+			path: '/',
+			redirect: '/login/login',
+		},
+		{
 			path: '/home',
 			name: 'Home',
 			component: Home,
-			alias: '/',
 		},
 		{
 			path: '/my',
@@ -21,7 +24,7 @@ export default new VueRouter({
 			component: MyPage,
 		},
 		{
-			path: '/login',
+			path: '/login/:type',
 			name: 'Login',
 			component: Login,
 		},
