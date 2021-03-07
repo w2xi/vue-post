@@ -9,8 +9,8 @@ import api from './api.js'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = api.base_url
-Vue.prototype.$_http = axios
-Vue.prototype.$_httpApi = api
+Vue.prototype.$_axios = axios
+Vue.prototype.$_api = api
 
 
 new Vue({

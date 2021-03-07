@@ -1,37 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/pages/home/Home'
-import MyPage from '@/pages/my/My'
-import Login from '@/components/Login'
-import Miss from '@/components/Miss'
+import store from '../store'
+import routes from './routes'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
-	routes: [
-		{
-			path: '/',
-			redirect: '/login/login',
-		},
-		{
-			path: '/home',
-			name: 'Home',
-			component: Home,
-		},
-		{
-			path: '/my',
-			name: 'My',
-			component: MyPage,
-		},
-		{
-			path: '/login/:type',
-			name: 'Login',
-			component: Login,
-		},
-		{
-			path: '*',
-			name: 'Miss',
-			component: Miss,
-		},
-	]
+const router = new VueRouter({
+	routes,
 })
+
+router.beforeEach((to, from, next)=>{
+	// check if auth is required on the route
+	// ( including nested rotues ).
+	const authRequired = to.matched.some(route=>route.meta.authRequired)
+	// if auth isn't required for the route, just continue.
+	if ( !authRequired )	return next()
+	// if auth is required and the user is logged in...
+	if ( store.state.userId ){
+		// todo#1
+	}
+	// if auth is required and the user is not currently loged in,
+	// redirect to login.
+	redirectToLogin()
+
+	function redirectToLogin(){
+		// pass the original route to the login component
+		next({ name: 'login', query: { redirectFrom: to.fullPath } })
+	}
+})
+
+export default router

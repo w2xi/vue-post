@@ -40,12 +40,12 @@ axios.interceptors.response.use(response=>{
     return Promise.reject(error);
   });
 
-export const axiosRq = async ( url, data = {}, config = {}, type = 'GET' ) => {
+export const axiosRq = async ( url, data = {}, type = 'GET' ) => {
     let result = null
     type = type.toUpperCase()
 
     if ( type === 'GET' ){
-        await axios.get(url, Object.assign(config, { params: data }))
+        await axios.get(url, { params: data })
             .then((res)=>{
                 result = res.data
             })
