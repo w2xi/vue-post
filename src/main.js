@@ -12,7 +12,6 @@ axios.defaults.baseURL = api.base_url
 Vue.prototype.$_axios = axios
 Vue.prototype.$_api = api
 
-
 new Vue({
 	router,
 	store,

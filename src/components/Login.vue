@@ -47,10 +47,14 @@ export default {
         message: '加载中...',
         forbidClick: true,
       });
-      const result = await axiosRq(this.$_api.login, { 
+      // const result = await axiosRq(this.$_api.login, { 
+      //   username: this.username,
+      //   password: this.password
+      // }, 'post')
+      const { data: result } = await this.$_axios.post(this.$_api.login, {
         username: this.username,
         password: this.password
-      }, 'post')
+      })
       Toast.clear()
 
       if ( result.code !== 10000 ){

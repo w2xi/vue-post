@@ -17,7 +17,7 @@ router.beforeEach((to, from, next)=>{
 	if ( !authRequired )	return next()
 	// if auth is required and the user is logged in...
 	if ( store.state.userId ){
-		// todo#1
+		// todo
 	}
 	// if auth is required and the user is not currently loged in,
 	// redirect to login.

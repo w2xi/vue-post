@@ -4,6 +4,11 @@ import api from './api'
 
 let isRefreshingToken = false
 let requests = []
+// Add a request interceptor
+axios.interceptors.request.use(config=>{
+    config.headers.Authorization = getToken()
+    return config
+})
 // Add a response interceptor
 axios.interceptors.response.use(response=>{
     if ( response.data.code === 1004 ){
@@ -34,32 +39,11 @@ axios.interceptors.response.use(response=>{
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
-  }, error=>{
+    }, error=>{
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);
-  });
-
-export const axiosRq = async ( url, data = {}, type = 'GET' ) => {
-    let result = null
-    type = type.toUpperCase()
-
-    if ( type === 'GET' ){
-        await axios.get(url, { params: data })
-            .then((res)=>{
-                result = res.data
-            })
-            .catch((err)=>console.log(err))
-    }else if ( type === 'POST' ){
-        await axios.post(url, qs.stringify(data))
-            .then((res)=>{
-                result = res.data
-            })
-            .catch((err)=>console.log(err))
-    }
-
-    return result
-}
+});
 
 export const refreshToken = () => {
     return axios.get(api.refresh_token, { 
