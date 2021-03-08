@@ -6,10 +6,10 @@
       </div>
       <div class="form">
         <div class="item">
-          <input v-model="username" placeholder="please enter your username" />
+          <input v-model="username" v-on:keyup.13="handleSubmit" placeholder="please enter your username" />
         </div>
         <div class="item">
-          <input type="password" v-model="password" placeholder="please enter your password" />
+          <input type="password" v-on:keyup.13="handleSubmit" v-model="password" placeholder="please enter your password" />
         </div>
         <div class="item button-box">
           <div class="button" @click="handleSubmit">Submit</div>
