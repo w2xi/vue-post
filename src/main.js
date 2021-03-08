@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import 'lib-flexible'
+import './assets/styles/reset.css'
+import './assets/styles/iconfont.css'
 import './filter.js'
 import api from './api.js'
 

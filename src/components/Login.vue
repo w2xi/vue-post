@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { axiosRq } from '@/common.js'
 import { Toast } from 'vant'
 import { mapMutations } from 'vuex'
 
@@ -47,10 +46,6 @@ export default {
         message: '加载中...',
         forbidClick: true,
       });
-      // const result = await axiosRq(this.$_api.login, { 
-      //   username: this.username,
-      //   password: this.password
-      // }, 'post')
       const { data: result } = await this.$_axios.post(this.$_api.login, {
         username: this.username,
         password: this.password
@@ -67,8 +62,9 @@ export default {
   },
 }
 </script>
-
 <style lang="stylus" scoped>
+@import '~@/assets/styles/variables.styl'
+
 .fade-enter-active, .fade-leave-active
   transition: opacity .3s
 .fade-enter, .fade-leave-to
@@ -97,6 +93,6 @@ export default {
       margin-top: 20px  
     .button
       margin: 0 auto
-      background: #06ff
+      background: $activeBlue
       color: #fff
 </style>	

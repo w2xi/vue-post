@@ -1,6 +1,7 @@
 import Home from '@/pages/home/Home'
 import MyPage from '@/pages/my/My'
 import Login from '@/components/Login'
+import Discover from '@/pages/discover/Discover'
 import Miss from '@/components/Miss'
 import routes from './routes'
 
@@ -14,6 +15,13 @@ export default [
 		component: Home,
 		meta: {
 			authRequired: false,
+		},
+	},
+	{
+		path: '/discover',
+		component: Discover,
+		meta: {
+			authRequired: false
 		},
 	},
 	{
