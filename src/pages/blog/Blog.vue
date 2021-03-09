@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- header -->
     <div class="header">
       <!-- post blog -->
@@ -24,13 +24,23 @@ export default {
 }  
 </script>
 
-<style lang="stylus" scoped="">
+<style lang="stylus" scoped>
+@import '~@/assets/styles/variables.styl'
+
+.container
+  height: 100vh
+  width: 100vw
+  background: $backgroundGrey
 .header
   display: flex
   align-items: center
+  padding: 7px
+  background: #fff
   .blog-post
     width: 40px
+    text-align: center
+    .icon-fabu
+      font-size: 21px
   .blog-search
     flex: 1  
-    overflow: hidden
 </style>
