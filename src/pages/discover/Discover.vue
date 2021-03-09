@@ -1,15 +1,15 @@
 <template>
   <div class="discover">
-  	<search-blog></search-blog>
+  	<search-bar></search-bar>
   </div>
 </template>
 
 <script>
-import SearchBlog from './components/SearchBlog'
+import SearchBar from '@/components/Search'
 
 export default {
   components: {
-  	SearchBlog,
+  	SearchBar,
   },
 }  
 </script>
@@ -18,5 +18,5 @@ export default {
 .discover
 	width: 100vw
 	height: 100vh
-	background: #efefef
+	background: #fff
 </style>
