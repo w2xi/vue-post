@@ -24,6 +24,7 @@ export default {
   align-items: center
   position: relative
   margin-left: 20px
+  margin-right: 10px
   font-size: 13px
   .search-icon
     position: absolute
@@ -37,7 +38,6 @@ export default {
     border: none
     background: #f5f5f5
   .search-btn
-    margin: 0 6px 0 10px
     height: 35px
     width: 60px
     border: none
