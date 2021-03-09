@@ -8,17 +8,23 @@
       </div>
       <!-- search -->
       <div class="blog-search">
-        <search-bar class="search" />
+        <search-bar />
       </div>
+    </div>
+    <!-- blog list -->
+    <div class="blog-list">
+      <blog-card />
     </div>
   </div>
 </template>
 
 <script>
 import SearchBar from '@/components/Search'
+import BlogCard from './components/BlogCard'
 
 export default {
   components: {
+    BlogCard,
     SearchBar,
   },
 }  

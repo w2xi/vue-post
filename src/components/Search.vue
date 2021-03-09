@@ -23,8 +23,6 @@ export default {
   display: flex
   align-items: center
   position: relative
-  margin-left: 20px
-  margin-right: 10px
   font-size: 13px
   .search-icon
     position: absolute
@@ -32,16 +30,18 @@ export default {
     transform: translate(50%, -50%)
   .search-input
     flex: 1
-    height: 35px  
+    height: 30px  
     padding-left: 28px
     border-radius: 30px
     border: none
-    background: #f5f5f5
+    background: $backgroundGrey
   .search-btn
-    height: 35px
+    height: 25px
     width: 60px
+    line-height: 25px
+    margin-left: 5px
     border: none
-    border-radius: 30px
+    border-radius: 25px
     background: $activeGreen
     color: #fff
     
