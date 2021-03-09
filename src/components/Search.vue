@@ -39,9 +39,9 @@ export default {
     height: 25px
     width: 60px
     line-height: 25px
-    margin-left: 10px
+    margin-left: 5px
     border: none
-    border-radius: 30px
+    border-radius: 25px
     background: $activeGreen
     color: #fff
     
