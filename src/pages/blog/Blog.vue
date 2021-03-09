@@ -37,7 +37,7 @@ export default {
   padding: 7px
   background: #fff
   .blog-post
-    width: 40px
+    width: 35px
     text-align: center
     .icon-fabu
       font-size: 21px
