@@ -33,11 +33,13 @@ export default {
   .panel-item
     display: flex
     align-items: center
-    padding: 10px 18px
+    padding: 15px 0
     .iconfont
       font-size: 20px
       margin-right: 3px
       color: #999
     .title
       color: #999
+  .panel-item + .panel-item
+    padding-left: 35px
 </style>

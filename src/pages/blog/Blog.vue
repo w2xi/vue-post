@@ -65,7 +65,10 @@ export default {
   .blog-search
     flex: 1  
 .blog-list
-  margin-top: 56px
+  margin-top: 60px
   .blog-item + .blog-item
-    margin-top: 7px
+    margin-top: 10px
+  .blog-item
+    background: #fff
+    padding: 15px 10px
 </style>

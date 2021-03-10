@@ -33,7 +33,6 @@ export default {
 <style lang="stylus" scoped>
 .blog-container
 	background: #fff
-	padding: 5px
 .blog-title
 	display: flex
 	align-items: center
