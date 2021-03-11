@@ -18,17 +18,33 @@
 				v-for="(item,index) of imgSrcList"
 				:key="index"
 			>
-				<div class="icon-delete-box">
+				<div 
+					class="icon-delete-box"
+					@click="removeImageItem(index)"
+				>
 					<i class="iconfont icon-shanchu"></i>
 				</div>
 				<img class="image" :src="item" />
 			</div>
 			<div class="add-image-padding">
-				<div class="add-image" @click="$refs.file.click()">
-						<i class="iconfont icon-tianjia"></i>
-					<input ref="file" type="file" @change="uploadHandle" multiple hidden>
+				<div 
+					v-show="showAddImgIcon"
+					class="add-image" 
+					@click="$refs.file.click()"
+				>
+					<i class="iconfont icon-tianjia"></i>
+					<input 
+						ref="file" 
+						type="file" 
+						@change="uploadHandle" 
+						multiple 
+						hidden
+					>
 				</div>
 			</div>
+		</div>
+		<div class="footer">
+			<button @click="submitHandle">发布</button>
 		</div>
 	</div>
 </template>
@@ -54,7 +70,72 @@ export default {
 			maxImgCounts: 9,
 		}
 	},
+	computed: {
+		showAddImgIcon(){
+			return this.imgFileList.length <= this.maxImgCounts
+		},
+	},
 	methods: {
+		submitHandle(){
+			if ( !this.content.trim() ){
+				return Toast('请随便写点什么吧')
+			}
+			if ( this.imgFileList.length > this.maxImgCounts ){
+				return Toast('最多只能上传9张图片')
+			}
+
+			Toast.loading({
+        duration: 0,
+        message: '发布中...',
+        forbidClick: true,
+      });
+
+			const formData = new FormData()
+			const config = {
+				headers: { 'Content-Type': 'multipart/form-data' }
+			}
+			const imgSrc = []
+			const promiseArr = []
+			for ( const file of this.imgFileList ){
+				formData.set('file', file)
+				promiseArr.push(new Promise((resolve, reject)=>{
+					this.$_axios.post(this.$_api.upload, formData, config)
+						.then((res)=>{
+							res = res.data
+							if ( res.code === 10000 ){
+								imgSrc = imgSrc.concat(res.data.url) 
+							}
+							resolve()
+						}).catch((err)=>{
+							console.log(err)
+							reject()
+						})
+				}))
+			}  
+
+			Promise.all(promiseArr)
+				.then((res)=>{
+					this.$_http.post(this.$_api.add_blog, {
+						content: this.content,
+						images: imgSrc,
+					}).then((res)=>{
+						Toast.success('发布成功')
+						Toast.clear()
+					}).catch((err)=>{
+						Toast.success('发布失败')
+						Toast.clear()
+						console.log(err)
+					})
+			}).catch((err)=>{	
+				Toast.success('发布失败')
+				Toast.clear()
+				console.log(err)
+			})
+		},
+		removeImageItem(index){
+			this.imgSrcList.splice(index, 1)
+			this.imgFileList.splice(index, 1)
+		},
 		uploadHandle(e){
 			const files = e.target.files
 			if ( files.length > this.maxImgCounts || this.imgFileList.length > this.maxImgCounts ){
@@ -93,6 +174,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~@/assets/styles/variables.styl'
+
 .container
 	overflow: hidden
 .content
@@ -102,6 +185,7 @@ export default {
 	padding: 10px
 	font-size: 15px
 	color: #aaa
+	box-sizing: border-box
 .notice
 	padding: 10px
 	font-size: 15px
@@ -115,10 +199,15 @@ export default {
 		position: absolute
 		top: 5px
 		right: 5px
+		height: 20px
+		width: 20px
+		border-bottom-left-radius: 15px
+		background: rgba(0,0,0,.7)
 	.icon-delete-box .icon-shanchu
 		position: absolute
-		top: 5px
-		right: 5px
+		top: 2px 
+		right: 2px
+		font-size: 12px
 		color: #fff
 .image-item-box, .add-image-padding
 	height: 100px
@@ -136,4 +225,14 @@ export default {
 	.icon-tianjia
 		font-size: 25px
 		color: #ccc
+button	
+	position: fixed
+	bottom: 20px
+	right: 20px
+	padding: 10px 20px
+	font-size: 13px
+	border-radius: 15px
+	border: none
+	background: $activeGreen
+	color: #fff
 </style>

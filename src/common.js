@@ -6,12 +6,13 @@ let isRefreshingToken = false
 let requests = []
 // Add a request interceptor
 axios.interceptors.request.use(config=>{
-    config.headers.Authorization = getToken()
+    config.headers.Authorization = localStorage.token
     return config
 })
 // Add a response interceptor
 axios.interceptors.response.use(response=>{
-    if ( response.data.code === 1004 ){
+    console.log(response)
+    if ( response.data.code === 1000 ){
         const config = response.config
         if ( !isRefreshingToken ){
             isRefreshingToken = true
@@ -40,6 +41,7 @@ axios.interceptors.response.use(response=>{
     // Do something with response data
     return response;
     }, error=>{
+        console.log(err)
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);
