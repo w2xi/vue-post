@@ -97,13 +97,13 @@ export default {
 			const imgSrc = []
 			const promiseArr = []
 			for ( const file of this.imgFileList ){
-				formData.set('file', file)
 				promiseArr.push(new Promise((resolve, reject)=>{
+					formData.set('file', file)
 					this.$_axios.post(this.$_api.upload, formData, config)
 						.then((res)=>{
 							res = res.data
 							if ( res.code === 10000 ){
-								imgSrc = imgSrc.concat(res.data.url) 
+								imgSrc.push(res.data.url) 
 							}
 							resolve()
 						}).catch((err)=>{
@@ -115,7 +115,7 @@ export default {
 
 			Promise.all(promiseArr)
 				.then((res)=>{
-					this.$_http.post(this.$_api.add_blog, {
+					this.$_axios.post(this.$_api.add_blog, {
 						content: this.content,
 						images: imgSrc,
 					}).then((res)=>{
