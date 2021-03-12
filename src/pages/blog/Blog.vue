@@ -4,7 +4,11 @@
     <div class="header">
       <!-- post blog -->
       <div class="blog-post">
-        <i class="iconfont icon-fabu"></i>
+        <i 
+          class="iconfont icon-fabu"
+          @click="$router.push('/blog-edit')"
+        >
+        </i>
       </div>
       <!-- search -->
       <div class="blog-search">
@@ -13,12 +17,12 @@
     </div>
     <!-- blog list -->
     <div class="blog-list">
-      <div class="blog-item">
-        <blog-card />
-        <blog-panel />
-      </div>
-      <div class="blog-item">
-        <blog-card />
+      <div 
+        class="blog-item"
+        v-for="item of blogList"
+        :key="item.id"
+      >
+        <blog-card :blogItem="item" />
         <blog-panel />
       </div>
     </div>
@@ -35,6 +39,30 @@ export default {
     BlogPanel,
     BlogCard,
     SearchBar,
+  },
+  data(){
+    return {
+      blogList: [],
+      count: 10,
+    }
+  },
+  methods: {
+    async getBlogList(){
+      const page = Math.ceil(this.blogList.length / this.count) + 1
+      const { data: res } = await this.$_axios.get(this.$_api.blog_list, {
+        params: {
+          page,
+          count: this.count,
+        }
+      })
+      if ( res.code !== 10000 ){
+        return Toast(res.msg)
+      }
+      this.blogList = res.data
+    }
+  },
+  created(){
+    this.getBlogList()
   },
 }  
 </script>

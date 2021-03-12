@@ -6,4 +6,6 @@ export default {
 	signup: '/api/v1.user/register',
 	add_blog: '/api/v1.blog/add',
 	upload: '/api/v1.blog/upload',
+	blog_list: '/api/v1.blog/read',
+	refresh_token: '/api/v1.token/refresh',
 }

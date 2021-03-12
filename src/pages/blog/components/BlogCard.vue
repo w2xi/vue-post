@@ -1,32 +1,35 @@
 <template>
 	<div class="blog-container">
 		<div class="blog-title">
-			<img class="blog-avatar" src="@/assets/images/default-avatar.jpg" alt="avatar" />
+			<img class="blog-avatar" :src="blogItem.user.avatar | imgPrefix" alt="avatar" />
 			<div class="blog-box">
 				<div class="blog-username">
-					w2xi
+					{{ blogItem.user.username }}
 				</div>
 				<div class="blog-create-at">
-					2021-3-9 21:31
+					{{ blogItem.create_at }}
 				</div>
 			</div>
 		</div>
 		<div class="blog-content">
-			Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis magnam, quo veniam eligendi, quisquam et autem natus reprehenderit. Delectus necessitatibus saepe labore adipisci pariatur exercitationem sunt blanditiis dignissimos sapiente voluptatem?
+			{{ blogItem.content }}
 		</div>
 		<div class="blog-image">
-			<img class="image-item" src="@/assets/images/default-avatar.jpg" alt="">
-			<img class="image-item" src="@/assets/images/default-avatar.jpg" alt="">
-			<img class="image-item" src="@/assets/images/default-avatar.jpg" alt="">
-			<img class="image-item" src="@/assets/images/default-avatar.jpg" alt="">
-			<img class="image-item" src="@/assets/images/default-avatar.jpg" alt="">
+			<img 
+				class="image-item" 
+				v-for="(image,index) of blogItem.images"
+				:src="image | imgPrefix" 
+				:key="index"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-
+	props: {
+		blogItem: Object,
+	}
 }	
 </script>
 

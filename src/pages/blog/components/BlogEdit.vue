@@ -72,64 +72,52 @@ export default {
 	},
 	computed: {
 		showAddImgIcon(){
-			return this.imgFileList.length <= this.maxImgCounts
+			return this.imgFileList.length < this.maxImgCounts
 		},
 	},
 	methods: {
-		submitHandle(){
+		async submitHandle(){
 			if ( !this.content.trim() ){
 				return Toast('请随便写点什么吧')
+			}
+			if ( this.imgFileList.length < 1 ) {
+				return Toast('请选择要上传的图片')
 			}
 			if ( this.imgFileList.length > this.maxImgCounts ){
 				return Toast('最多只能上传9张图片')
 			}
-
 			Toast.loading({
         duration: 0,
         message: '发布中...',
         forbidClick: true,
       });
-
 			const formData = new FormData()
 			const config = {
 				headers: { 'Content-Type': 'multipart/form-data' }
 			}
-			const imgSrc = []
-			const promiseArr = []
-			for ( const file of this.imgFileList ){
-				promiseArr.push(new Promise((resolve, reject)=>{
-					formData.set('file', file)
-					this.$_axios.post(this.$_api.upload, formData, config)
-						.then((res)=>{
-							res = res.data
-							if ( res.code === 10000 ){
-								imgSrc.push(res.data.url) 
-							}
-							resolve()
-						}).catch((err)=>{
-							console.log(err)
-							reject()
-						})
-				}))
-			}  
-
-			Promise.all(promiseArr)
-				.then((res)=>{
-					this.$_axios.post(this.$_api.add_blog, {
-						content: this.content,
-						images: imgSrc,
-					}).then((res)=>{
-						Toast.success('发布成功')
-						Toast.clear()
-					}).catch((err)=>{
-						Toast.success('发布失败')
-						Toast.clear()
-						console.log(err)
-					})
-			}).catch((err)=>{	
-				Toast.success('发布失败')
+			Array.from(this.imgFileList).map((file)=>{
+				formData.append('file[]', file);
+			})
+			const {data: res} = await this.$_axios.post(this.$_api.upload, formData, config)
+			console.log(res)
+			if ( res.code !== 10000 ){
+				Toast.fail('发布失败')
 				Toast.clear()
-				console.log(err)
+				return
+			}
+			// 上传成功的图片  
+			const images = res.data
+			// 提交
+			this.$_axios.post(this.$_api.add_blog, {
+				images,
+				content: this.content,
+			}).then((res)=>{
+				Toast.success('发布成功')
+				Toast.clear()
+				this.$router.push('/blog')
+			}).catch(err=>{
+				Toast.fail('发布失败')
+				Toast.clear()
 			})
 		},
 		removeImageItem(index){
@@ -184,7 +172,7 @@ export default {
 	border: none
 	padding: 10px
 	font-size: 15px
-	color: #aaa
+	color: #666
 	box-sizing: border-box
 .notice
 	padding: 10px
