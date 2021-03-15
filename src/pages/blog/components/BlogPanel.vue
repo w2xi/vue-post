@@ -26,14 +26,16 @@ export default {
 <style lang="stylus" scoped>
 @import '~@/assets/styles/variables.styl'
 
+.blog-panel
+  background: #fff
+  padding-left: 10px
 .panel-box
   display: flex
   align-items: center
-  background: #fff
   .panel-item
     display: flex
     align-items: center
-    padding: 15px 0
+    padding: 10px 0
     .iconfont
       font-size: 20px
       margin-right: 3px

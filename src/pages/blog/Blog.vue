@@ -22,7 +22,10 @@
         v-for="item of blogList"
         :key="item.id"
       >
-        <blog-card :blogItem="item" />
+        <blog-card 
+          :blog="item" 
+          @goBlogDetail="goBlogDetail"
+        />
         <blog-panel />
       </div>
     </div>
@@ -47,6 +50,9 @@ export default {
     }
   },
   methods: {
+    goBlogDetail(id){
+      this.$router.push(`/blog-detail/${id}`)
+    },
     async getBlogList(){
       const page = Math.ceil(this.blogList.length / this.count) + 1
       const { data: res } = await this.$_axios.get(this.$_api.blog_list, {
@@ -63,6 +69,9 @@ export default {
   },
   created(){
     this.getBlogList()
+  },
+  activated(){
+    console.log('activated')
   },
 }  
 </script>
@@ -96,7 +105,4 @@ export default {
   margin-top: 60px
   .blog-item + .blog-item
     margin-top: 10px
-  .blog-item
-    background: #fff
-    padding: 15px 10px
 </style>

@@ -1,23 +1,23 @@
 <template>
-	<div class="blog-container">
+	<div class="blog-container" v-if="blog">
 		<div class="blog-title">
-			<img class="blog-avatar" :src="blogItem.user.avatar | imgPrefix" alt="avatar" />
+			<img class="blog-avatar" :src="blog.user.avatar | imgPrefix" alt="avatar" />
 			<div class="blog-box">
 				<div class="blog-username">
-					{{ blogItem.user.username }}
+					{{ blog.user.username }}
 				</div>
 				<div class="blog-create-at">
-					{{ blogItem.create_at }}
+					{{ blog.create_at }}
 				</div>
 			</div>
 		</div>
-		<div class="blog-content">
-			{{ blogItem.content }}
+		<div class="blog-content" @click="goBlogDetail(blog.id)">
+			{{ blog.content }}
 		</div>
-		<div class="blog-image">
+		<div class="blog-image" @click.prevent="goBlogDetail(blog.id)">
 			<img 
 				class="image-item" 
-				v-for="(image,index) of blogItem.images"
+				v-for="(image,index) of blog.images"
 				:src="image | imgPrefix" 
 				:key="index"
 			/>
@@ -28,14 +28,20 @@
 <script>
 export default {
 	props: {
-		blogItem: Object,
-	}
+		blog: Object,
+	},
+	methods: {
+		goBlogDetail(id){
+			this.$emit('goBlogDetail', id);
+		},
+	},
 }	
 </script>
 
 <style lang="stylus" scoped>
 .blog-container
 	background: #fff
+	padding: 10px
 .blog-title
 	display: flex
 	align-items: center
