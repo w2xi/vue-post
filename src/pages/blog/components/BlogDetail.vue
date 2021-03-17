@@ -28,20 +28,21 @@ export default {
 	},
 	methods: {
 		async getBlogDetail(id){
-			const {data: res} = await this.$_axios.get(this.$_api.blog_detail, { params: {
-				id,
-			} });
-			if ( res.code !== 10000 ){
-				return Toast(res.msg)
+			const {data: res} = await this.$_axios.get(this.$_api.blog_detail, { params: { id } })
+
+			if ( res.code === 10000 ){
+				this.blog = res.data
+			}else{
+				this.$toast(res.msg)
+				this.$router.go(-1)
 			}
-			this.blog = res.data
 		}
 	},
 	created(){
 		const blogId = this.$route.params.id
-			if ( blogId ){
-				this.getBlogDetail(blogId)
-			}
+		if ( blogId ){
+			this.getBlogDetail(blogId)
+		}
 	},
 }
 </script>

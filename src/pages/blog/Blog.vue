@@ -12,7 +12,7 @@
       </div>
       <!-- search -->
       <div class="blog-search">
-        <search-bar />
+        <search-bar @search="handleSearch" />
       </div>
     </div>
     <!-- blog list -->
@@ -50,6 +50,15 @@ export default {
     }
   },
   methods: {
+    async handleSearch(keyword){
+      const {data: res} = await this.$_axios.get(this.$_api.search, { params: { keyword } })
+
+      if ( res.code === 10000 ){
+        this.blogList = res.data
+      }else{
+        this.$toast(res.msg)
+      }
+    },
     goBlogDetail(id){
       this.$router.push(`/blog-detail/${id}`)
     },
@@ -61,10 +70,11 @@ export default {
           count: this.count,
         }
       })
-      if ( res.code !== 10000 ){
-        return Toast(res.msg)
+      if ( res.code === 10000 ){
+        this.blogList = res.data
+      }else{
+        Toast(res.msg)
       }
-      this.blogList = res.data
     }
   },
   created(){

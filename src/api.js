@@ -8,5 +8,6 @@ export default {
 	upload: '/api/v1.blog/upload',
 	blog_list: '/api/v1.blog/read',
 	blog_detail: '/api/v1.blog/detail',
+  search: '/api/v1.blog/search',
 	refresh_token: '/api/v1.token/refresh',
 }

@@ -1,8 +1,12 @@
 <template>
   <div class="search-container">
     <i class="iconfont icon-sousuo search-icon"></i>
-    <input class="search-input" v-model="content" placeholder="请随便搜点什么" />
-    <button class="search-btn">搜索</button>
+    <input 
+      class="search-input" 
+      v-model="content" 
+      placeholder="请随便搜点什么" 
+    />
+    <button class="search-btn" @click="search">搜索</button>
   </div>
 </template>
 
@@ -12,6 +16,11 @@ export default {
     return {
       content: '',
     }
+  },
+  methods: {
+    search(){
+      this.$emit('search', this.content)
+    },
   },
 }
 </script>

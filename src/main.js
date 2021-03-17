@@ -9,11 +9,14 @@ import './assets/styles/iconfont.css'
 import './filter.js'
 import api from './api.js'
 import './common.js'
+import { Toast } from 'vant'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = api.base_url
 Vue.prototype.$_axios = axios
 Vue.prototype.$_api = api
+
+Vue.use(Toast)
 
 new Vue({
 	router,

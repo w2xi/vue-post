@@ -6,13 +6,13 @@ let isRefreshingToken = false
 let requests = []
 // Add a request interceptor
 axios.interceptors.request.use(config=>{
-    console.log(config)
+    // console.log(config)
     config.headers.Authorization = localStorage.token
     return config
 })
 // Add a response interceptor
 axios.interceptors.response.use(response=>{
-    console.log(response)
+    // console.log(response)
     if ( response.data.code === 1000 ){
         const config = response.config
         if ( !isRefreshingToken ){
