@@ -14,7 +14,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+@import '~@/assets/styles/variables.styl'
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,5 +24,6 @@ export default {
   color: #2c3e50;
   margin: 0;
   padding: 0;
+  background: $backgroundGrey
 }
 </style>
