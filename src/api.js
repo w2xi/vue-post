@@ -1,4 +1,4 @@
-const BASE_URL = 'http://jwt-api.com'
+const BASE_URL = 'http://auth-api.com'
 
 export default {
 	base_url: BASE_URL,
